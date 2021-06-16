@@ -1,6 +1,6 @@
 # imports
 from splinter import Browser
-from bs4 import BeautifulSoup as bs
+from bs4 import BeautifulSoup as Soup
 import pandas as pd
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -19,12 +19,12 @@ def scrape():
 
     # Create a beautiful soup object
     html = browser.html
-    news_soup = bs(html, 'html.parser')
+    news_soup = Soup(html, 'html.parser')
 
     element = news_soup.select_one('div.list_text')
     print(element)
 
-    news_title = element.find('div', class_='content_title').get_text()
+    News_title = element.find('div', class_='content_title').get_text()
     news_paragraph = element.find('div', class_='article_teaser_body').get_text()
 
 
@@ -36,7 +36,7 @@ def scrape():
 
     # Create a beautiful soup object
     html = browser.html
-    news_soup = bs(html, 'html.parser')
+    news_soup = Soup(html, 'html.parser')
 
     # Find the image button
     imageElement = browser.find_by_tag('button')[1]
@@ -47,7 +47,7 @@ def scrape():
     # After clicking create another bs object
     # Create a beautiful soup object
     html = browser.html
-    image_soup = bs(html, 'html.parser')
+    image_soup = Soup(html, 'html.parser')
 
     image_url = image_soup.find('img', class_='fancybox-image').get('src')
     print(image_url)
@@ -105,7 +105,7 @@ def scrape():
     browser.quit()
 
     # Create final dictionary to load to mongoDB
-    mars_data = {'news_title': news_title,
+    mars_data = {'news_title': News_title,
                 'news_paragraph': news_paragraph,
                 'img_url': img_url,
                 'df': df,
